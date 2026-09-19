@@ -1,0 +1,17 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin - CVC নাটক</title><link rel="stylesheet" href="style.css"><style>
+.panel{max-width:700px;margin:35px auto;padding:25px;background:#fff;border-radius:14px;box-shadow:0 3px 20px #0001}label{display:block;font-weight:700;margin:15px 0 7px}input,select{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:15px}.btn{margin-top:18px;background:#e51b23;color:#fff;border:0;border-radius:8px;padding:12px 18px;font-weight:800;cursor:pointer}.item{display:flex;gap:12px;align-items:center;border-top:1px solid #eee;padding:12px 0}.item img{width:120px;height:68px;object-fit:cover;border-radius:7px}.delete{margin-left:auto;background:#222;color:#fff;border:0;border-radius:7px;padding:8px 12px}.warn{padding:12px;background:#fff7d6;border-radius:8px;font-size:14px;line-height:1.5}
+</style></head><body><header><div class="top"><a class="logo" href="./">▶ CVC নাটক</a><a class="admin" href="index.html">হোম</a></div></header>
+<div class="panel"><h2>অ্যাডমিন প্যানেল</h2><div class="warn"><b>নোট:</b> এটি সম্পূর্ণ ফ্রি static version। নাটকের তালিকা এই browser-এর Local Storage-এ রাখা হবে। অর্থাৎ এখন শুধু এই browser/device-এ থাকবে। পরের ধাপে চাইলে আলাদা free database দিয়ে সব device-এ একই তালিকা করা যাবে।</div>
+<label>নাটকের নাম</label><input id="title" placeholder="যেমন: ভালোবাসার গল্প">
+<label>ক্যাটাগরি</label><select id="category"><option>বাংলা</option><option>হিন্দি</option><option>কোরিয়ান</option><option>তামিল</option><option>ইংরেজি</option></select>
+<label>Thumbnail-এর সরাসরি ছবি লিংক</label><input id="image" placeholder="https://example.com/image.jpg">
+<label>ভিডিও লিংক (YouTube / TeraBox / Telegram)</label><input id="url" placeholder="https://...">
+<button class="btn" onclick="add()">নাটক প্রকাশ করুন</button>
+<h2 style="margin-top:35px">প্রকাশিত নাটক</h2><div id="list"></div></div>
+<script>
+const KEY="cvc_natok_data";function get(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}function save(a){localStorage.setItem(KEY,JSON.stringify(a))}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function add(){let title=document.getElementById("title").value.trim(),image=document.getElementById("image").value.trim(),url=document.getElementById("url").value.trim(),category=document.getElementById("category").value;if(!title||!image||!url){alert("নাম, Thumbnail link এবং Video link—তিনটিই দিন।");return}let a=get();a.unshift({id:Date.now(),title,image,url,category});save(a);["title","image","url"].forEach(x=>document.getElementById(x).value="");render()}
+function del(id){save(get().filter(x=>x.id!==id));render()}
+function render(){document.getElementById("list").innerHTML=get().map(x=>`<div class="item"><img src="${esc(x.image)}"><div><b>${esc(x.title)}</b><br><small>${esc(x.category)}</small></div><button class="delete" onclick="del(${x.id})">ডিলিট</button></div>`).join("")||"<p>এখনও কোনো নাটক নেই।</p>"}render();
+</script></body></html>

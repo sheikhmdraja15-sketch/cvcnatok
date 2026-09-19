@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CVC নাটক</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="top">
+    <a class="logo" href="./">▶ CVC নাটক</a>
+    <input id="search" type="search" placeholder="নাটকের নাম লিখুন..." oninput="render()">
+    <a class="admin" href="admin.html">⚙ অ্যাডমিন</a>
+  </div>
+  <nav id="categories"></nav>
+</header>
+
+<section class="hero">
+  <div><p class="small">আপনার পছন্দের বাংলা ও অন্যান্য ভাষার নাটক</p>
+  <h1>গল্পে গল্পে<br><b>সারাবেলা</b></h1>
+  <p>এক ক্লিকেই আপনার পছন্দের ভিডিও দেখুন।</p></div>
+  <a class="play" href="#dramas">PLAY</a>
+</section>
+
+<main id="dramas">
+  <h2>CVC নির্বাচন</h2>
+  <div id="grid" class="grid"></div>
+  <div id="empty" class="empty">
+    <h3>এখনও কোনো নাটক প্রকাশিত হয়নি</h3>
+    <p>শিগগিরই নতুন নাটক আসছে!</p>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
